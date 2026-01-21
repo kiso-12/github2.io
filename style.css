@@ -1,0 +1,220 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap');
+
+/* =========================================
+   BASE THEME
+   ========================================= */
+:root {
+    --bg-paper: #f9f4e0;
+    --wood: #6d4c41;
+    --text: #4e342e;
+    
+    --card-bg: #fff;
+    --card-border: #8d6e63;
+    --get-bg: #fff9c4;
+    --target-bg: #ffcdd2;
+    --future-bg: #eceff1;
+    --ocean: #48cae4;
+    --land: #90be6d;
+
+    --font-pixel: "DotGothic16", sans-serif;
+    --font-main: "M PLUS Rounded 1c", sans-serif;
+}
+
+body {
+    background-color: var(--bg-paper);
+    background-image: 
+        linear-gradient(rgba(109, 76, 65, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109, 76, 65, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--text);
+    font-family: var(--font-main);
+    margin: 0;
+    line-height: 1.8; /* 読みやすく少し広めに */
+    padding-top: 40px;
+    padding-bottom: 120px;
+}
+
+.container { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    /* コンテナ内のテキストを基本中央揃えにする（ページによる） */
+    text-align: center; 
+}
+
+a { text-decoration: none; color: inherit; }
+.pixel-text { font-family: var(--font-pixel); }
+.fade-up { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* Header */
+header {
+    position: fixed; bottom: 0; left: 0; width: 100%; height: 80px;
+    background: #222; border-top: 4px solid #555; z-index: 1000;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+}
+nav { display: flex; gap: 8px; width: 100%; max-width: 700px; padding: 0 10px; }
+.nav-btn {
+    flex: 1; background: linear-gradient(to bottom, #fff, #ddd);
+    border: 2px solid #888; border-radius: 8px; height: 50px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    font-family: var(--font-pixel); font-size: 0.85rem; color: #333;
+    box-shadow: 0 4px 0 #888; transition: transform 0.1s;
+}
+.nav-btn.active {
+    background: linear-gradient(to bottom, #ffe082, #ffca28);
+    transform: translateY(4px); border-color: #d4a017; box-shadow: none;
+}
+
+/* =========================================
+   PAGE SPECIFIC STYLES
+   ========================================= */
+
+/* --- INDEX: Hero Card --- */
+.hero-card {
+    background: #fff;
+    border: 4px solid var(--wood);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center; /* 明示的に中央揃え */
+    margin: 20px auto; /* 中央配置 */
+    max-width: 600px;  /* 幅を制限して読みやすく */
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+    position: relative;
+}
+.hero-card::after { /* テープ装飾 */
+    content: ""; position: absolute; top: -15px; left: 50%;
+    width: 100px; height: 30px; background: rgba(255,255,255,0.6);
+    border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+    transform: translateX(-50%) rotate(-2deg);
+}
+
+/* --- PROJECT: Quest Board --- */
+.quest-board {
+    background: #fff;
+    border: 4px solid var(--wood);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+    /* 掲示板風テクスチャ */
+    background-image: repeating-linear-gradient(45deg, #fff, #fff 10px, #fcfcfc 10px, #fcfcfc 20px);
+    text-align: left; /* カードの中身は左揃えで読みやすく */
+}
+
+.quest-card {
+    border: 2px dashed var(--card-border);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    background: #fff;
+    transition: transform 0.2s;
+}
+.quest-card:last-child { margin-bottom: 0; }
+.quest-card:hover { transform: scale(1.02); background: #fffef0; }
+
+.quest-header {
+    display: flex; align-items: center; gap: 15px; margin-bottom: 15px;
+    border-bottom: 2px solid var(--bg-paper); padding-bottom: 10px;
+}
+.quest-icon { font-size: 2.5rem; }
+.quest-title { font-size: 1.3rem; font-weight: 800; color: var(--text); margin: 0; }
+.quest-tag {
+    font-family: var(--font-pixel); background: var(--target-bg); color: #c62828;
+    padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; border: 1px solid var(--target-bg);
+}
+.quest-body h4 { margin: 15px 0 5px 0; color: var(--wood); font-size: 1rem; border-left: 4px solid var(--ocean); padding-left: 10px; }
+.quest-body p { margin: 0; font-size: 0.95rem; color: #555; text-align: left; }
+
+
+/* --- WORKS: Grid Layout --- */
+.works-grid {
+    display: grid;
+    /* カードの最小幅を少し広げて、中央に寄せる */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center; /* グリッド全体を中央へ */
+    padding: 20px 0;
+}
+
+.work-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    border: 2px solid #eee;
+    text-align: left; /* 中身は左揃え */
+    max-width: 400px; /* 広がりすぎ防止 */
+    margin: 0 auto;   /* グリッド内で中央配置 */
+    width: 100%;
+}
+.work-card:hover { transform: translateY(-5px); border-color: var(--ocean); }
+.work-thumb {
+    height: 140px; background: #a2d2ff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative;
+}
+.work-thumb::after {
+    content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 10px; background: var(--land);
+}
+.work-body { padding: 20px; }
+.work-title { font-weight: 800; font-size: 1.2rem; margin-bottom: 5px; color: var(--text); }
+.work-tag {
+    display: inline-block; background: #eceff1; padding: 2px 8px;
+    border-radius: 10px; font-size: 0.7rem; font-family: var(--font-pixel); margin-bottom: 10px;
+}
+
+/* =========================================
+   ABOUT: SKILL MAP STYLES (KEEP)
+   ========================================= */
+.skill-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 30px auto 30px auto 30px auto;
+    gap: 10px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+.card {
+    background: #fff; border: 3px solid var(--card-border); border-radius: 12px;
+    padding: 15px 5px; width: 100%; max-width: 220px; text-align: center; position: relative;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1); transition: transform 0.2s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100px; text-decoration: none; color: var(--text); z-index: 2;
+}
+.card:hover { transform: translateY(-5px); z-index: 10; }
+.card.acquired { background: var(--get-bg); border-color: #fbc02d; }
+.card.target { background: var(--target-bg); border-color: #ef5350; animation: pulse 2s infinite; }
+.card.future { background: var(--future-bg); border-color: #b0bec5; border-style: dashed; color: #888; }
+.card.biz { background: #e0f7fa; border-color: #00acc1; }
+.card.biz-high { background: #fff8e1; border-color: #ffa000; }
+.card.wide { grid-column: span 2; max-width: 460px; background: linear-gradient(to right, #fff, #ffebee); }
+
+.card.acquired::after { content: "GET"; position: absolute; top: -10px; right: -5px; background: #fbc02d; color: #333; font-family: var(--font-pixel); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+.card.target::after { content: "GOAL"; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: #ef5350; color: #fff; font-family: var(--font-pixel); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+
+.icon { font-size: 2rem; display: block; margin-bottom: 5px; }
+.name { font-weight: 800; font-size: 0.9rem; line-height: 1.2; }
+.category { font-family: var(--font-pixel); font-size: 0.7rem; color: #666; margin-bottom: 2px; background: rgba(255,255,255,0.5); padding: 0 5px; border-radius: 4px; }
+.arrow { color: var(--wood); font-size: 1.5rem; font-weight: bold; opacity: 0.6; font-family: "MS PGothic", sans-serif; }
+.merchant-area { margin-top: 60px; text-align: center; border-top: 2px dashed var(--wood); padding-top: 40px; }
+.merchant-grid { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 200px; margin: 0 auto; }
+
+/* Mobile About */
+@media (max-width: 768px) {
+    .skill-map { display: flex; flex-direction: column; gap: 40px; }
+    .arrow { display: none; }
+    .card.wide { grid-column: auto; max-width: 220px; }
+    .card::before { content: "↓"; position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: var(--wood); opacity: 0.5; font-weight: bold; }
+    .mobile-label { display: block !important; width: 100%; text-align: center; font-family: var(--font-pixel); background: var(--wood); color: #fff; padding: 5px; border-radius: 5px; margin-bottom: -20px; z-index: 5; }
+    .sp-order-1 { order: 1; } .sp-order-2 { order: 2; } .sp-order-3 { order: 3; } .sp-order-4 { order: 4; }
+    .card.last-item::before { display: none; }
+}
+.mobile-label { display: none; }
